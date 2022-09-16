@@ -1,4 +1,5 @@
 from workshops.numeral_systems import convert
+from workshops.conditions_and_loops import solve_the_knight_move_problem
 
 greeting = '''Choose option:
 1. Convert number from any base to any base.
@@ -18,6 +19,6 @@ while True:
     if user_input == '1':
         pass_input(convert)
     elif user_input == '2':
-        pass
+        pass_input(solve_the_knight_move_problem)
     elif user_input == '3':
         break

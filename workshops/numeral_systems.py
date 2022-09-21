@@ -3,13 +3,13 @@ def convert_internal(original_number, from_base=10, to_base=10):
 
     if to_base == 10:
         return str(number)
-    alphabet = '012345678990ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
     result = ''
-    while number > to_base:
+    while number > 0:
         result = alphabet[number % to_base] + result
         number //= to_base
-    result = str(number) + result
     return result
 
 

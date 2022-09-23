@@ -6,6 +6,7 @@ def can_knight_move(input_string):
     else:
         return False
 
+
 def solve_the_knight_move_problem(input_string):
     if can_knight_move(input_string):
         return "Yes, it can"

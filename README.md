@@ -29,3 +29,12 @@ Each option here leads to a single function which takes a line of data and provi
 ## Code style
 
 For this repository there is a requirement of code style. Use *pylint*, *flake8* or PyCharm "Problems" tab to check for style errors. 
+
+## Init
+
+Project requires a few external libraries. You can install them using `pip` in your Terminal.
+
+Just open the terminal in project's directory and run
+```
+pip install -r requirements.txt
+```

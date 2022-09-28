@@ -4,6 +4,7 @@ from workshops.real_numbers_and_strings import interest_rate_wrapper
 from workshops.regexp import list_isbn_from_file, list_urls_from_file
 from workshops.zoom_link import zoom
 from workshops.strings_code_style import text_filter_wrapper
+from workshops.bruteforce import sublists_wrapper
 from src.util import input_int
 
 functions_list = [
@@ -15,6 +16,7 @@ functions_list = [
     {"prompt": "Filter text from the link.", "function": text_filter_wrapper},
     {"prompt": "Find all ISBN codes in a file.", "function": list_isbn_from_file},
     {"prompt": "Find all URL's in a file.", "function": list_urls_from_file},
+    {"prompt": "Get all sublists of provided list.", "function": sublists_wrapper}
 ]
 
 

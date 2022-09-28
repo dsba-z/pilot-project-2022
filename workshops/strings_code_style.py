@@ -1,5 +1,5 @@
-import requests
 import re
+import requests
 
 
 def text_filter(link, pattern):

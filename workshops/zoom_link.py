@@ -8,4 +8,3 @@ def zoom(link):
     else:
         meeting_id = (meeting_id[0:3] + " " + meeting_id[3:7] + " " + meeting_id[7:11])
     return meeting_id
-

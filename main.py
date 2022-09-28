@@ -6,7 +6,7 @@ from workshops.zoom_link import zoom
 from workshops.strings_code_style import text_filter_wrapper
 from src.util import input_int
 
-functions = [
+functions_list = [
     {"prompt": "Exit", "function": None},
     {"prompt": "Convert number from any base to any base.", "function": convert},
     {"prompt": "Solve the knight move problem.", "function": solve_the_knight_move_problem},
@@ -41,8 +41,8 @@ def print_greeting(functions):
 
 
 while True:
-    print_greeting(functions)
-    user_input = input_int(start=0, end=len(functions) - 1)
+    print_greeting(functions_list)
+    user_input = input_int(start=0, end=len(functions_list) - 1)
     if user_input == "0":
         break
-    run_function(functions[user_input])
+    run_function(functions_list[user_input])

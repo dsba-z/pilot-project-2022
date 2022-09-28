@@ -6,17 +6,6 @@ from workshops.zoom_link import zoom
 from workshops.strings_code_style import text_filter_wrapper
 from src.util import input_int
 
-greeting = """Choose option:
-1. Convert number from any base to any base.
-2. Solve the knight move problem
-3. Solve interest rate problem
-4. Extract ID from Zoom link
-5. Filter text from the link
-6. Find all ISBN codes in a file
-7. Find all URL's in a file
-0. Exit
-"""
-
 functions = [
     {"prompt": "Exit", "function": None},
     {"prompt": "Convert number from any base to any base.", "function": convert},
@@ -46,6 +35,7 @@ def run_function(function_data):
 
 
 def print_greeting(functions):
+    print("Choose option:")
     for i, entry in enumerate(functions):
         print(f"{i}. {entry['prompt']}")
 

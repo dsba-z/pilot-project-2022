@@ -4,8 +4,9 @@ from workshops.real_numbers_and_strings import interest_rate_wrapper
 from workshops.regexp import list_isbn_from_file, list_urls_from_file
 from workshops.zoom_link import zoom
 from workshops.strings_code_style import text_filter_wrapper
+from src.util import input_int
 
-greeting = '''Choose option:
+greeting = """Choose option:
 1. Convert number from any base to any base.
 2. Solve the knight move problem
 3. Solve interest rate problem
@@ -14,7 +15,18 @@ greeting = '''Choose option:
 6. Find all ISBN codes in a file
 7. Find all URL's in a file
 0. Exit
-'''
+"""
+
+functions = [
+    {"prompt": "Exit", "function": None},
+    {"prompt": "Convert number from any base to any base.", "function": convert},
+    {"prompt": "Solve the knight move problem.", "function": solve_the_knight_move_problem},
+    {"prompt": "Calculate interest problem.", "function": interest_rate_wrapper},
+    {"prompt": "Extract ID from Zoom link.", "function": zoom},
+    {"prompt": "Filter text from the link.", "function": text_filter_wrapper},
+    {"prompt": "Find all ISBN codes in a file.", "function": list_isbn_from_file},
+    {"prompt": "Find all URL's in a file.", "function": list_urls_from_file},
+]
 
 
 def pass_input(func):
@@ -23,21 +35,24 @@ def pass_input(func):
     print(func(task_input), "\n")
 
 
+def run_function(function_data):
+    task_input = input("Enter input for the task:\n")
+    answer = function_data["function"](task_input)
+    print(f"""
+    Answer:
+
+    {answer}
+    """)
+
+
+def print_greeting(functions):
+    for i, entry in enumerate(functions):
+        print(f"{i}. {entry['prompt']}")
+
+
 while True:
-    user_input = input(greeting)
-    if user_input == '1':
-        pass_input(convert)
-    elif user_input == '2':
-        pass_input(solve_the_knight_move_problem)
-    elif user_input == '3':
-        pass_input(interest_rate_wrapper)
-    elif user_input == '4':
-        pass_input(zoom)
-    elif user_input == '5':
-        pass_input(text_filter_wrapper)
-    elif user_input == '6':
-        pass_input(list_isbn_from_file)
-    elif user_input == '7':
-        pass_input(list_urls_from_file)
-    elif user_input == '0':
+    print_greeting(functions)
+    user_input = input_int(start=0, end=len(functions) - 1)
+    if user_input == "0":
         break
+    run_function(functions[user_input])

@@ -1,8 +1,10 @@
 import re
 
+
 def list_urls_from_file(file: str) -> [str]:
     """
-    parses files in order to find all urls in it and returns a list of them
+    Find all URLs in a file.
+    Parse files in order to find all urls in it and returns a list of them
     :param file: filename
     :return: list of urls
     """
@@ -25,7 +27,8 @@ def list_urls(text: str) -> [str]:
 
 def list_isbn_from_file(file: str) -> [str]:
     """
-    parses files in order to find all ISBN codes in it and returns a list of them
+    Find all ISBN codes in a file.
+    Parse files in order to find all ISBN codes in it and returns a list of them
     :param file: filename
     :return: list of ISBN codes
     """

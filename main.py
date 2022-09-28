@@ -1,20 +1,12 @@
-from workshops.numeral_systems import convert
-from workshops.conditions_and_loops import solve_the_knight_move_problem
-from workshops.real_numbers_and_strings import interest_rate_wrapper
-from workshops.regexp import list_isbn_from_file, list_urls_from_file
-from workshops.zoom_link import zoom
-from workshops.strings_code_style import text_filter_wrapper
+import importlib
+import inspect
+import os
+from inspect import getmembers
+
 from src.util import input_int
 
 functions_list = [
-    {"prompt": "Exit", "function": None},
-    {"prompt": "Convert number from any base to any base.", "function": convert},
-    {"prompt": "Solve the knight move problem.", "function": solve_the_knight_move_problem},
-    {"prompt": "Calculate interest problem.", "function": interest_rate_wrapper},
-    {"prompt": "Extract ID from Zoom link.", "function": zoom},
-    {"prompt": "Filter text from the link.", "function": text_filter_wrapper},
-    {"prompt": "Find all ISBN codes in a file.", "function": list_isbn_from_file},
-    {"prompt": "Find all URL's in a file.", "function": list_urls_from_file},
+    {"prompt": "Exit", "function": exit},
 ]
 
 
@@ -34,6 +26,26 @@ def run_function(function_data):
     """)
 
 
+modules = []
+workshops_directory = 'workshops'
+
+for path, directory, module in os.walk(workshops_directory):
+    for cur in module:
+        if '__init__' in cur:
+            break
+        if '.pyc' in cur:
+            break
+        if 'input()' in open(os.path.join(workshops_directory, cur)).read():
+            break
+
+        module = importlib.import_module(workshops_directory + '.' + cur.replace('.py', ''))
+        for func in [i[1] for i in getmembers(module, inspect.isfunction)]:
+            docstring = inspect.getdoc(func)
+            if docstring is not None:
+                doc_first_line = docstring.split('\n')[0]
+                functions_list.append({"prompt": doc_first_line, "function": func})
+
+
 def print_greeting(functions):
     print("Choose option:")
     for i, entry in enumerate(functions):
@@ -43,6 +55,7 @@ def print_greeting(functions):
 while True:
     print_greeting(functions_list)
     user_input = input_int(start=0, end=len(functions_list) - 1)
-    if user_input == "0":
+    if user_input == 0:
+        exit()
         break
     run_function(functions_list[user_input])

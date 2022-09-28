@@ -8,7 +8,7 @@ def convert_internal(original_number, from_base=10, to_base=10):
         return str(number)
 
     alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    
+
     result = ''
     while number > 0:
         result = alphabet[number % to_base] + result

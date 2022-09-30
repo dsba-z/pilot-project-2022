@@ -1,39 +1,40 @@
-from workshops.numeral_systems import convert
-from workshops.conditions_and_loops import solve_the_knight_move_problem
-from workshops.real_numbers_and_strings import interest_rate_wrapper
-from workshops.regexp import list_isbn_from_file, list_urls_from_file
-from workshops.zoom_link import zoom
-from workshops.strings_code_style import text_filter_wrapper
-from workshops.bruteforce import sublists_wrapper
+import importlib
+import inspect
+import os
+from inspect import getmembers
+import argparse
 from src.util import input_int
 
 functions_list = [
-    {"prompt": "Exit", "function": None},
-    {"prompt": "Convert number from any base to any base.", "function": convert},
-    {"prompt": "Solve the knight move problem.", "function": solve_the_knight_move_problem},
-    {"prompt": "Calculate interest problem.", "function": interest_rate_wrapper},
-    {"prompt": "Extract ID from Zoom link.", "function": zoom},
-    {"prompt": "Filter text from the link.", "function": text_filter_wrapper},
-    {"prompt": "Find all ISBN codes in a file.", "function": list_isbn_from_file},
-    {"prompt": "Find all URL's in a file.", "function": list_urls_from_file},
-    {"prompt": "Get all sublists of provided list.", "function": sublists_wrapper}
+    {"prompt": "Exit", "function": exit},
 ]
 
 
-def pass_input(func):
-    task_input = input("\nProvide input for the task: \n")
-    print("\nAnswer:\n")
-    print(func(task_input), "\n")
-
-
-def run_function(function_data):
-    task_input = input("Enter input for the task:\n")
+def run_function(function_data, task_input):
     answer = function_data["function"](task_input)
-    print(f"""
-    Answer:
-
+    print(f"""Answer:
+    
     {answer}
     """)
+
+
+modules = []
+workshops_directory = "workshops"
+for path, directory, module in os.walk(workshops_directory):
+    for cur in module:
+        if "__init__" in cur:
+            break
+        if ".pyc" in cur:
+            break
+        if "input()" in open(os.path.join(workshops_directory, cur), encoding='utf-8').read():
+            break
+
+        module = importlib.import_module(workshops_directory + "." + cur.replace(".py", ""))
+        for func in [i[1] for i in getmembers(module, inspect.isfunction)]:
+            docstring = inspect.getdoc(func)
+            if docstring is not None:
+                doc_first_line = docstring.split("\n", maxsplit=1)[0]
+                functions_list.append({"prompt": doc_first_line, "function": func})
 
 
 def print_greeting(functions):
@@ -42,9 +43,25 @@ def print_greeting(functions):
         print(f"{i}. {entry['prompt']}")
 
 
-while True:
-    print_greeting(functions_list)
-    user_input = input_int(start=0, end=len(functions_list) - 1)
-    if user_input == "0":
-        break
-    run_function(functions_list[user_input])
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--problem", type=int, help="Problem number")
+    parser.add_argument("--input", type=str, help="Input for problem")
+    args = parser.parse_args()
+    if args.problem is not None and args.input is not None:
+        print(f'> Solving problem "{functions_list[args.problem]["prompt"]}"')
+        print(f'> Input is: {args.input}')
+        run_function(functions_list[args.problem], args.input)
+    else:
+        while True:
+            print_greeting(functions_list)
+            user_input = input_int(start=0, end=len(functions_list) - 1)
+            if user_input == 0:
+                exit()
+                break
+            task_input = input("Enter input for the task:\n")
+            run_function(functions_list[user_input], task_input)
+
+
+if __name__ == "__main__":
+    main()

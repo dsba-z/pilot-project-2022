@@ -9,4 +9,5 @@ def get_sublists(a):
 
 
 def sublists_wrapper(input_string):
+    "Get all sublists of provided list."
     return get_sublists(input_string.split())

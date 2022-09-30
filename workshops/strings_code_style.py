@@ -11,5 +11,6 @@ def text_filter(link, pattern):
 
 
 def text_filter_wrapper(input_text):
+    """Filter text from the link."""
     link, pattern = input_text.split()
     return text_filter(link, pattern)

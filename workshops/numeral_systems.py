@@ -17,6 +17,7 @@ def convert_internal(original_number, from_base=10, to_base=10):
 
 
 def convert(input_string):
+    """Convert number from any base to any base."""
     number, from_base, to_base = input_string.split()
     from_base = int(from_base)
     to_base = int(to_base)

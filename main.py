@@ -3,6 +3,7 @@ import inspect
 import os
 from inspect import getmembers
 import argparse
+import sys
 from src.util import input_int
 
 functions_list = [
@@ -26,8 +27,9 @@ for path, directory, module in os.walk(workshops_directory):
             break
         if ".pyc" in cur:
             break
-        if "input()" in open(os.path.join(workshops_directory, cur), encoding='utf-8').read():
-            break
+        with open(os.path.join(workshops_directory, cur), encoding='utf-8') as f:
+            if "input()" in f.read():
+                break
 
         module = importlib.import_module(workshops_directory + "." + cur.replace(".py", ""))
         for func in [i[1] for i in getmembers(module, inspect.isfunction)]:
@@ -57,7 +59,7 @@ def main():
             print_greeting(functions_list)
             user_input = input_int(start=0, end=len(functions_list) - 1)
             if user_input == 0:
-                exit()
+                sys.exit()
                 break
             task_input = input("Enter input for the task:\n")
             run_function(functions_list[user_input], task_input)

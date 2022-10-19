@@ -2,9 +2,9 @@ def get_sublists(a):
     ans = []
     for i in range(pow(2, len(a))):
         ans.append([])
-        for j in range(len(a)):
-            if (i & pow(2, j)):
-                ans[-1].append(a[j])
+        for j, x in enumerate(a):
+            if i & pow(2, j):
+                ans[-1].append(x)
     return ans
 
 

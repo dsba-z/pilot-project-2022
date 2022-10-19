@@ -1,7 +1,7 @@
 def convert_internal(original_number, from_base=10, to_base=10):
     number = int(original_number, from_base)
 
-    if (number == 0):
+    if number == 0:
         return '0'
 
     if to_base == 10:

@@ -16,7 +16,7 @@ def run_function(function_data, task_input):
     
     {answer}
     """)
-
+print(":)")
 
 modules = []
 workshops_directory = "workshops"

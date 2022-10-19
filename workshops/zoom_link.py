@@ -1,6 +1,6 @@
 def zoom(link):
     """Extract ID from Zoom link."""
-    link = link.split('/')
+    link =  link.split('/')
     meeting_id = link[4]
     if len(meeting_id) == 9:
         meeting_id = (meeting_id[0:3] + " " + meeting_id[3:6] + " " + meeting_id[6:9])

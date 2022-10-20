@@ -1,14 +1,5 @@
 import streamlit as st
-from workshops.numeral_systems import convert_internal
-
-
-def convert_callback(original_number, from_base, to_base, result_widget):
-    try:
-        result = convert_internal(original_number, from_base, to_base)
-        result_widget.text(f"Output is {result}")
-    except ValueError:
-        result_widget.text("Incorrect number for this base")
-
+from src.workshops.numeral_systems import convert_internal
 
 st.title('Numeral systems')
 

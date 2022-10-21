@@ -7,6 +7,6 @@ def can_knight_move(x1, y1, x2, y2):
 
 def solve_the_knight_move_problem(input_string):
     """Solve the knight move problem."""
-    if can_knight_move(input_string):
+    if can_knight_move(*[int(x) for x in input_string.split()]):
         return "Yes, it can"
     return "No, it cannot"

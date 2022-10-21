@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <header class="d-flex justify-content-center py-3">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <img src="/static/images/fcs_logo(r).png" alt="" width="52" height="52">
+            <span class="fs-4">DSBA Pilot project 2022</span>
+        </a>
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="https://github.com/dsba-z/pilot-project-2022" class="nav-link">Github
+                repository</a></li>
+        </ul>
+    </header>
+</div>
+
+<script>hljs.highlightAll();</script>
+<div class="divider"></div>
+<div class="container col-xxl-12 px-4 py-5">
+    <div class="row justify-content-around flex-lg-row-reverse g-5 py-5">
+        <h1 class="display-5 fw-bold lh-1 mb-3">{{ task.prompt }}</h1>
+        <div class="col-5 shadow">
+            <pre><code class="language-python">{{ task.source_code }}</code>
+            </pre>
+        </div>
+        <div class="col-6 shadow text-center p-5">
+            <form action="/task?id={{task.id}}" method="post">
+                <h4><label for="task_input" class="form-label fw-bold px-4">Your input</label></h4>
+                <textarea id="task_input" name="task_input" class="form-control shadow-sm" rows="6" cols="120"
+                          placeholder="Write your input here"
+                          required></textarea>
+                <button type="submit" class="btn btn-primary btn-lg  m-5">Run this task</button>
+            </form>
+
+            {% if output %}
+            <pre class="shadow-sm">{{output}}</pre>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock  %}

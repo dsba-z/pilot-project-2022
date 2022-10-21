@@ -1,4 +1,4 @@
-def task1(city=None):
+def task1(city):
     import requests
     # Settings - Project - Python Interpreter
     # pip
@@ -41,13 +41,15 @@ def task1(city=None):
     def main():
         nonlocal city
         api_address = 'https://api.openweathermap.org/data/2.5/weather?appid=a10fd8a212e47edf8d946f26fb4cdef8&q='
-        c = city or input("City Name : ")
         units_format = "&units=metric"
-        final_url = api_address + c + units_format
-        json_data = requests.get(final_url).json()
-        weather_details = get_weather_data(json_data, c)
-        # print formatted data
-        return weather_details
+        final_url = api_address + city + units_format
+        try:
+            json_data = requests.get(final_url).json()
+            weather_details = get_weather_data(json_data, city)
+            # print formatted data
+            return weather_details
+        except:
+            return ''
 
     return main()
 
@@ -64,16 +66,12 @@ def task2(repo):
         s = s.replace("*", "\*")
         return s
 
-    # print("Generated on {}.\n".format(time.strftime("%Y-%m-%d")))
-    print("Name | Stargazers | Description | Topics")
-    print("|".join(["----"] * 4))
     try:
         r = github.get_repo(repo)
     except:
-        sys.stderr.write("Error: Repository '{}' not found.\n".format(repo))
-        sys.exit(-1)
+        return ''
 
-    content = " | ".join([
+    content = "Name | Stargazers | Description | Topics\n" + "|".join(["----"] * 4) + "\n" + " | ".join([
         "[{}]({})".format(r.full_name, r.html_url),
         str(r.stargazers_count),
         sanitize_for_md(r.description),

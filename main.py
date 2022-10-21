@@ -14,13 +14,13 @@ functions_list = [
 def run_function(function_data, task_input):
     answer = function_data["function"](task_input)
     print(f"""Answer:
-    
+
     {answer}
     """)
-print(":)")
+
 
 modules = []
-workshops_directory = "workshops"
+workshops_directory = os.path.join("src", "workshops")
 for path, directory, module in os.walk(workshops_directory):
     for cur in module:
         if "__init__" in cur:
@@ -31,7 +31,8 @@ for path, directory, module in os.walk(workshops_directory):
             if "input()" in f.read():
                 break
 
-        module = importlib.import_module(workshops_directory + "." + cur.replace(".py", ""))
+        workshop_dir_import = workshops_directory.replace("/", ".")
+        module = importlib.import_module(workshop_dir_import + "." + cur.replace(".py", ""))
         for func in [i[1] for i in getmembers(module, inspect.isfunction)]:
             docstring = inspect.getdoc(func)
             if docstring is not None:

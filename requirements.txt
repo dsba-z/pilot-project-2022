@@ -1,3 +1,4 @@
 streamlit
 pylint
+requests
 Flask~=2.2.2

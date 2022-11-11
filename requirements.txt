@@ -1,2 +1,6 @@
-streamlit
+streamlit~=1.13.0
 pylint
+
+requests~=2.25.0
+
+PyGitHub~=1.56

@@ -50,7 +50,7 @@ def task():
             f = io.StringIO()
             with redirect_stdout(f):
                 task_output = current_task['function'](task_input)
-            if f.getvalue() is not '':
+            if f.getvalue() != '':
                 task_output = f.getvalue()
         except Exception as e:
             task_output = str(e)
